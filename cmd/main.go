@@ -98,6 +98,7 @@ func updatePage(db *sql.DB) func(http.ResponseWriter, *http.Request) {
 		if exists {
 			fmt.Println("exists page")
 			_ = r.ParseForm() //add error handling
+			fmt.Println(r.Form["body"][0])
 			dbH.EditPage(dbH.Page{Title: r.Form["title"][0], Body: r.Form["body"][0], ID: pid}, db)
 			http.Redirect(w, r, "/", 300)
 			return
@@ -154,6 +155,6 @@ func main() {
 
 	//starts localhost server on port 8081
 	//will stop program after logging error
-	log.Fatal(http.ListenAndServe(":8081", nil))
+	log.Fatal(http.ListenAndServe(":"+dbH.Conf.Host.Port, nil))
 
 }

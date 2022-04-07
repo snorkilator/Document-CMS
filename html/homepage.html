@@ -3,13 +3,14 @@
   <link rel="stylesheet" type="text/css" href="/css.css" media="screen" />
 </head>
 <body>
-  <h1><a href="/add/">Create Page</a></h1>
-  <table>
+  <div class="top-bar">
+  </div>
+  <table style="width: 60%; max-width: 60rem;">
     {{range .}}
-    <tr>
+    <tr >
       <td><a href="/view/{{.ID}}">{{.Title}}</a></td>
-      <td style="padding-left: 30%">
-        <button
+      <td>
+        <button style="float: right;"
           onclick="window.location.href='/delete/{{.ID}}';"
           class="button button1"
         >
@@ -19,4 +20,5 @@
     </tr>
     {{end}}
   </table>
+  <h4 style="text-align: center"><a href="/add/">Create Page</a></h4>
 </body>

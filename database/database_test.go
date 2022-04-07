@@ -2,7 +2,6 @@ package database
 
 import (
 	"fmt"
-	"os"
 	"testing"
 
 	_ "github.com/lib/pq"
@@ -24,9 +23,6 @@ func TestPageExist(t *testing.T) {
 }
 
 func TestDBConfig(t *testing.T) {
-	fmt.Println(os.Getwd())
-	os.Chdir(`..`)
-	fmt.Println(os.Getwd())
 	insertStr := "insert into pages (title, body) values ('firsttitle', 'firstbody')"
 	deleteAllRows := "delete from pages where title='firsttitle'"
 	readEntireStr := "select * from pages where title='firsttitle'"

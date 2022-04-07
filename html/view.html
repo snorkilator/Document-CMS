@@ -1,12 +1,15 @@
 <head>
   <title>{{.Title}}</title>
   <link rel="stylesheet" type="text/css" href="/css.css" media="screen" />
+
 </head>
 <body>
-  <a href="/edit/{{.ID}}">switch to edit mode</a>
-  <a href="/">Go to homepage</a>
+  <div class="top-bar">
+    <a href="/edit/{{.ID}}">switch to edit mode</a>
+    <a href="/">Go to homepage</a>
+ </div>
   <br />
-  <h1>{{.Title}}</h1>
+  <h1 style="text-align:center">{{.Title}}</h1>
   <br />
-  <div>{{.Body}}</div>
+  <div class="post-body" style="white-space: pre-wrap">{{.Body}}</div>
 </body>

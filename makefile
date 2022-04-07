@@ -11,13 +11,17 @@ build:
 	go build -o bin /home/daniel/Documents/gocms/cmd/main.go
 
 #runs clear table util
-cleardb:
+clear:
 	/home/daniel/Documents/gocms/bin/clearTable
 
 #makes sure db is working
-testdb:
+test:
 	go test ./database
 
 #opens up server config file in text editor
 config:
 	gedit ./serverConfig.yaml
+
+#connect to cmsdb database using pg.sh
+db:
+	./pg.sh

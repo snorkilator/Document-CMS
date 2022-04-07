@@ -1,5 +1,5 @@
 host:
- port: 8081
+ port: 8080
  path: /home/daniel/Documents/gocms/html/
 db:
  name: cmsdb
