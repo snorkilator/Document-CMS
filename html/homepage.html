@@ -1,0 +1,22 @@
+<head>
+  <title>Home Page</title>
+  <link rel="stylesheet" type="text/css" href="/css.css" media="screen" />
+</head>
+<body>
+  <h1><a href="/add/">Create Page</a></h1>
+  <table>
+    {{range .}}
+    <tr>
+      <td><a href="/view/{{.ID}}">{{.Title}}</a></td>
+      <td style="padding-left: 30%">
+        <button
+          onclick="window.location.href='/delete/{{.ID}}';"
+          class="button button1"
+        >
+          delete
+        </button>
+      </td>
+    </tr>
+    {{end}}
+  </table>
+</body>
