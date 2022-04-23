@@ -152,6 +152,9 @@ func main() {
 	http.HandleFunc("/css.css", func(w http.ResponseWriter, r *http.Request) {
 		http.ServeFile(w, r, dbH.Conf.Host.Path+"css.css")
 	})
+	http.HandleFunc("/bundle.js", func(w http.ResponseWriter, r *http.Request) {
+		http.ServeFile(w, r, dbH.Conf.Host.Path+"bundle.js")
+	})
 
 	//starts localhost server on port 8081
 	//will stop program after logging error
