@@ -2,7 +2,6 @@
 package main
 
 import (
-	"context"
 	"database/sql"
 	"encoding/json"
 	"errors"
@@ -216,9 +215,10 @@ func main() {
 	// starts localhost server on port 8081
 	// will stop program after logging error
 	// log.Fatal(http.ListenAndServe(":"+dbH.Conf.Host.Port, nil))
-	go func() {
-		server.Shutdown(context.TODO())
-	}()
+	// go func() {
+	// 	server.Shutdown(context.TODO())
+	// }()
+	log.Printf("Opened server on port %s", dbH.Conf.Host.Port)
 	log.Println(server.ListenAndServe())
 }
 
