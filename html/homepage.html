@@ -2,29 +2,26 @@
   <title>Home Page</title>
   <link rel="stylesheet" type="text/css" href="/css.css" media="screen" />
   <script src="/bundle.js" type="module"></script>
+  <!-- <script src="/titles.json"></script> -->
 </head>
 <body>
+  <div class="top-bar"></div>
   <div id="root"></div>
-  <div class="top-bar">
-  </div>
-  <table style="width: 60%; max-width: 60rem;">
+  <!-- <table style="width: 60%; max-width: 60rem">
     {{range .}}
     <tr id="{{.ID}}">
       <td><a href="/view/{{.ID}}">{{.Title}}</a></td>
       <td>
-        <button style="float: right;"
-        class="button button1" 
-        onclick="deleteRow('{{.ID}}')"
-
+        <button
+          style="float: right"
+          class="button button1"
+          onclick="deleteRow('{{.ID}}')"
         >
-        <!-- deleteRow('{{.ID}}') -->
-          <!-- onclick="window.location.href='/delete/{{.ID}}';" -->
-
           delete
         </button>
       </td>
     </tr>
     {{end}}
-  </table>
+  </table> -->
   <h4 style="text-align: center"><a href="/add/">Create Page</a></h4>
 </body>
