@@ -159,7 +159,7 @@ func handleErr(f func(*sql.DB, http.ResponseWriter, *http.Request) error, db *sq
 func main() {
 
 	var server http.Server
-	server.Addr = ":" + dbH.Conf.Host.Port
+	server.Addr = dbH.Conf.Host.IP + ":" + dbH.Conf.Host.Port
 
 	//opens connection with DB
 	db, err := dbH.ConnectDB()
