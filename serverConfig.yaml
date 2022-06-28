@@ -1,9 +1,11 @@
 host:
- port: 8080
- path: /home/daniel/Documents/gocms/html/
+  #  ip: 192.168.0.108
+  ip:
+  port: 8080
+  path: /home/daniel/Documents/gocms/html/
 db:
- name: cmsdb
- port: 5433
- password: admin
- user: cmsdb
- dbtype: postgres
+  name: cmsdb
+  port: 5433
+  password: admin
+  user: cmsdb
+  dbtype: postgres

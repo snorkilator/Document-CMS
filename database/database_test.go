@@ -2,23 +2,43 @@ package database
 
 import (
 	"fmt"
+	"log"
+	"net/http"
 	"testing"
+	"time"
 
 	_ "github.com/lib/pq"
 )
 
 //Only works if id=34 row exists
 func TestPageExist(t *testing.T) {
+
 	db, err := ConnectDB()
 	if err != nil {
 		t.Fatal(err)
 	}
-	b, err := PageExists(34, db)
-	if err != nil {
-		t.Fatal(err)
+	for i := 0; i < 1000; i++ {
+		b, err := PageExists(25, db)
+		if err != nil {
+			t.Fatal(err)
+		}
+		if !b {
+			t.Fatalf("got: %v want: %v", b, true)
+		}
+		log.Println(i)
+		time.Sleep(52 * time.Microsecond)
 	}
-	if !b {
-		t.Fatalf("got: %v want: %v", b, true)
+}
+
+func TestManyDBConnections(t *testing.T) {
+	// request homepage over a hundred times
+	for i := 0; i < 10000; i++ {
+		resp, err := http.Get("http://localhost:8080/view/25")
+		if err != nil {
+			t.Fatal(err, resp.StatusCode)
+		}
+		log.Println(i, resp.StatusCode)
+
 	}
 }
 

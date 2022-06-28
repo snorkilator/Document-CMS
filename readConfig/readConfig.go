@@ -8,6 +8,7 @@ import (
 
 type CFG struct {
 	Host struct {
+		IP   string
 		Port string
 		Path string
 	}

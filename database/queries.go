@@ -4,12 +4,24 @@ package database
 import (
 	"backend/readConfig"
 	"database/sql"
+	"errors"
 	"fmt"
 	"regexp"
 	"strconv"
 
 	_ "github.com/lib/pq"
 )
+
+type DBFatal string
+
+func (err DBFatal) Error() string {
+	return string(err)
+}
+
+func NewdbFatal(wrap string, err error) error {
+	s := wrap + ":" + err.Error()
+	return DBFatal(s)
+}
 
 var (
 	Conf, err = readConfig.GetConfig()
@@ -29,10 +41,10 @@ func ConnectDB() (*sql.DB, error) {
 }
 
 //GetTitles takes db connection and returns all titles in pages table as []page
-func GetTitles(db *sql.DB) []Page {
+func GetTitles(db *sql.DB) ([]Page, error) {
 	data, err := db.Query("SELECT (id, title) FROM pages where 0=0")
 	if err != nil {
-		panic(err)
+		return []Page{}, NewdbFatal("GetTitles", err)
 	}
 	results := []Page{}
 
@@ -43,12 +55,12 @@ func GetTitles(db *sql.DB) []Page {
 		m := format.FindStringSubmatch(row)
 		num, err := strconv.Atoi(m[1])
 		if err != nil {
-			panic(err)
+			return []Page{}, errors.New("GetTitles" + err.Error())
 		}
 
 		results = append(results, Page{Title: m[2], ID: num})
 	}
-	return results
+	return results, nil
 }
 
 // Takes PID, queries database for matching PID and returns
@@ -58,8 +70,10 @@ func GetPage(pid int, db *sql.DB) (Page, error) {
 	if err != nil {
 		return Page{}, fmt.Errorf("GetPage: %v", err)
 	}
+	defer title.Close()
 	bquery := fmt.Sprintf("SELECT body FROM pages Where id = '%d'", pid)
 	body, err := db.Query(bquery)
+	defer body.Close()
 	if err != nil {
 		return Page{}, fmt.Errorf("GetPage: %v", err)
 	}
@@ -112,8 +126,8 @@ func PageExists(pid int, db *sql.DB) (bool, error) {
 	row := db.QueryRow(qstr)
 
 	exists := ""
-	if row.Scan(&exists) != nil {
-		return false, nil
+	if err := row.Scan(&exists); err != nil {
+		return false, errors.New("PageExists: " + err.Error())
 	}
 
 	if string(exists) == `true` {
